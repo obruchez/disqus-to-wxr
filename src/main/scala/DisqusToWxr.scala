@@ -97,28 +97,6 @@ object DisqusToWxr {
 
   case class Thread(id: String, link: String, title: String, content: String, date: String)
 
-  /*
-  <post dsq:id="1764461582">
-      <id>4627219507490294554</id>
-      <message>
-          <![CDATA[<p>Oliver, <br>
-          <br>this is a great description - very helpful and very detailed! How did you figure out the coordinate system issues? What a challenge!<br>
-          <br>If you happen to have GPS tracks in either GPS or NMEA format, also take a look at Fodysseus as a slick alternative to Robogeo: very intuitive automated geotagging of photographs! <a href="http://www.fodysseus.com" rel="nofollow">http://www.fodysseus.com</a>
-      </p>]]>
-  </message>
-  <createdAt>2006-11-08T10:56:00Z</createdAt>
-  <isDeleted>false</isDeleted>
-  <isSpam>false</isSpam>
-  <author>
-      <email>ole_seidel@blogger.disqus.net</email>
-      <name>Ole Seidel</name>
-      <isAnonymous>true</isAnonymous>
-  </author>
-  <ipAddress>255.255.255.255</ipAddress>
-  <thread dsq:id="3373411701"/>
-  </post>
-   */
-
   case class Post(id: String,
                   threadId: String,
                   author: String,
