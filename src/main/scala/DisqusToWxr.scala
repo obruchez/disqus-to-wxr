@@ -42,7 +42,7 @@ object DisqusToWxr {
                   <wp:comment_id>{ post.id }</wp:comment_id>
                   <wp:comment_author>{ post.author }</wp:comment_author>
                   <wp:comment_author_email>{ post.authorEmail }</wp:comment_author_email>
-                  <!-- <wp:comment_author_url></wp:comment_author_url> -->
+                  <wp:comment_author_url></wp:comment_author_url>
                   <wp:comment_author_IP>{ post.authorIp }</wp:comment_author_IP>
                   <wp:comment_date_gmt>{ post.date }</wp:comment_date_gmt>
                   <wp:comment_content>{ Unparsed(s"<![CDATA[${post.content}]]>") }</wp:comment_content>
