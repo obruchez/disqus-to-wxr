@@ -64,12 +64,12 @@ object DisqusToWxr {
       title = (post \ "title").text
       content = (post \ "message").text
       date = (post \ "createdAt").text.replaceAll("T", " ").replaceAll("Z", "")
-    } yield Thread(
-      id = id,
-      link = link,
-      title = title,
-      content = content,
-      date = date)
+    } yield
+      Thread(id = id,
+             link = link,
+             title = title,
+             content = content,
+             date = date)
 
   protected def posts(disqus: Elem): Seq[Post] =
     for {
@@ -81,21 +81,25 @@ object DisqusToWxr {
       authorIp = (post \ "ipAddress").text
       content = (post \ "message").text
       date = (post \ "createdAt").text.replaceAll("T", " ").replaceAll("Z", "")
-    } yield Post(
-      id = id,
-      threadId = threadId,
-      author = author,
-      authorEmail = authorEmail,
-      authorIp = authorIp,
-      content = content,
-      date = date)
+    } yield
+      Post(id = id,
+           threadId = threadId,
+           author = author,
+           authorEmail = authorEmail,
+           authorIp = authorIp,
+           content = content,
+           date = date)
 
   implicit class NodeOps(node: Node) {
     def singleAttribute(uri: String, key: String): String =
       node.attribute(uri, key).flatMap(_.headOption).map(_.text).getOrElse("")
   }
 
-  case class Thread(id: String, link: String, title: String, content: String, date: String)
+  case class Thread(id: String,
+                    link: String,
+                    title: String,
+                    content: String,
+                    date: String)
 
   case class Post(id: String,
                   threadId: String,
@@ -107,4 +111,3 @@ object DisqusToWxr {
 
   protected val DisqusUri = "http://disqus.com/disqus-internals"
 }
-
