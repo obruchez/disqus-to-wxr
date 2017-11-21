@@ -64,12 +64,7 @@ object DisqusToWxr {
       title = (post \ "title").text
       content = (post \ "message").text
       date = (post \ "createdAt").text.replaceAll("T", " ").replaceAll("Z", "")
-    } yield
-      Thread(id = id,
-             link = link,
-             title = title,
-             content = content,
-             date = date)
+    } yield Thread(id = id, link = link, title = title, content = content, date = date)
 
   protected def posts(disqus: Elem): Seq[Post] =
     for {
@@ -95,11 +90,7 @@ object DisqusToWxr {
       node.attribute(uri, key).flatMap(_.headOption).map(_.text).getOrElse("")
   }
 
-  case class Thread(id: String,
-                    link: String,
-                    title: String,
-                    content: String,
-                    date: String)
+  case class Thread(id: String, link: String, title: String, content: String, date: String)
 
   case class Post(id: String,
                   threadId: String,
