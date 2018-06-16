@@ -1,3 +1,5 @@
+package org.bruchez.olivier.disqustowxr
+
 import scala.xml._
 
 object DisqusToWxr {
