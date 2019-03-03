@@ -1,10 +1,10 @@
 name := "disqus-to-wxr"
 
-version := "1.0"
+version := "1.1"
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.8"
 
-libraryDependencies += "org.scala-lang.modules" % "scala-xml_2.12" % "1.1.0"
+libraryDependencies += "org.scala-lang.modules" % "scala-xml_2.12" % "1.1.1"
 
 scalafmtOnCompile in ThisBuild := true
 
