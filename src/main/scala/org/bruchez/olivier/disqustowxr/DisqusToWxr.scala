@@ -25,37 +25,37 @@ object DisqusToWxr {
       xmlns:dsq="http://www.disqus.com/"
       xmlns:dc="http://purl.org/dc/elements/1.1/"
       xmlns:wp="http://wordpress.org/export/1.0/">{
-        for {
-          thread <- threads
-          if threadIdFilter.map(_ == thread.id).getOrElse(true)
-        } yield {
-          <item>
-            <title>{ thread.title }</title>
-            <link>{ thread.link }</link>
-            <content:encoded>{ Unparsed(s"<![CDATA[${thread.content}]]>") }</content:encoded>
-            <dsq:thread_identifier>{ thread.id }</dsq:thread_identifier>
-            <wp:post_date_gmt>{ thread.date }</wp:post_date_gmt>
+      for {
+        thread <- threads
+        if threadIdFilter.map(_ == thread.id).getOrElse(true)
+      } yield {
+        <item>
+            <title>{thread.title}</title>
+            <link>{thread.link}</link>
+            <content:encoded>{Unparsed(s"<![CDATA[${thread.content}]]>")}</content:encoded>
+            <dsq:thread_identifier>{thread.id}</dsq:thread_identifier>
+            <wp:post_date_gmt>{thread.date}</wp:post_date_gmt>
             <wp:comment_status>open</wp:comment_status>
             {
-              for {
-                post <- posts.filter(_.threadId == thread.id)
-              } yield {
-                <wp:comment>
-                  <wp:comment_id>{ post.id }</wp:comment_id>
-                  <wp:comment_author>{ post.author }</wp:comment_author>
-                  <wp:comment_author_email>{ post.authorEmail }</wp:comment_author_email>
+          for {
+            post <- posts.filter(_.threadId == thread.id)
+          } yield {
+            <wp:comment>
+                  <wp:comment_id>{post.id}</wp:comment_id>
+                  <wp:comment_author>{post.author}</wp:comment_author>
+                  <wp:comment_author_email>{post.authorEmail}</wp:comment_author_email>
                   <wp:comment_author_url></wp:comment_author_url>
-                  <wp:comment_author_IP>{ post.authorIp }</wp:comment_author_IP>
-                  <wp:comment_date_gmt>{ post.date }</wp:comment_date_gmt>
-                  <wp:comment_content>{ Unparsed(s"<![CDATA[${post.content}]]>") }</wp:comment_content>
+                  <wp:comment_author_IP>{post.authorIp}</wp:comment_author_IP>
+                  <wp:comment_date_gmt>{post.date}</wp:comment_date_gmt>
+                  <wp:comment_content>{Unparsed(s"<![CDATA[${post.content}]]>")}</wp:comment_content>
                   <wp:comment_approved>1</wp:comment_approved>
                   <wp:comment_parent>0</wp:comment_parent>
                 </wp:comment>
-              }
-            }
-          </item>
+          }
         }
-      }</rss>
+          </item>
+      }
+    }</rss>
   }
 
   protected def threads(disqus: Elem): Seq[Thread] =
@@ -78,14 +78,15 @@ object DisqusToWxr {
       authorIp = (post \ "ipAddress").text
       content = (post \ "message").text
       date = (post \ "createdAt").text.replaceAll("T", " ").replaceAll("Z", "")
-    } yield
-      Post(id = id,
-           threadId = threadId,
-           author = author,
-           authorEmail = authorEmail,
-           authorIp = authorIp,
-           content = content,
-           date = date)
+    } yield Post(
+      id = id,
+      threadId = threadId,
+      author = author,
+      authorEmail = authorEmail,
+      authorIp = authorIp,
+      content = content,
+      date = date
+    )
 
   implicit class NodeOps(node: Node) {
     def singleAttribute(uri: String, key: String): String =
@@ -94,13 +95,15 @@ object DisqusToWxr {
 
   case class Thread(id: String, link: String, title: String, content: String, date: String)
 
-  case class Post(id: String,
-                  threadId: String,
-                  author: String,
-                  authorEmail: String,
-                  authorIp: String,
-                  content: String,
-                  date: String)
+  case class Post(
+      id: String,
+      threadId: String,
+      author: String,
+      authorEmail: String,
+      authorIp: String,
+      content: String,
+      date: String
+  )
 
   protected val DisqusUri = "http://disqus.com/disqus-internals"
 }
